@@ -192,12 +192,13 @@ namespace Switcher
         {
             swtch switcher = new swtch(Debug);
             switcher.Switch();
+            Switch_Btn.Content = swtch.isSwitched() ? "Switch to Gigamons" : "Switch to Bancho";
         }
 
         private void onLoadButton(object sender, RoutedEventArgs e)
         {
-            Switch_Btn.Content = swtch.isSwitched() ? "Switch to Bancho" : "Switch to Gigamons";
-
+            System.Threading.Thread.Sleep(500);
+            Switch_Btn.Content = swtch.isSwitched() ? "Switch to Gigamons" : "Switch to Bancho";
         }
     }
 

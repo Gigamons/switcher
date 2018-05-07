@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Windows;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using Switcher.Properties;
 
 namespace Switcher
 {
@@ -40,25 +42,55 @@ namespace Switcher
 
             if (!isSwitched())
             {
+                X509Store store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+                store.Open(OpenFlags.ReadWrite);
+                X509Certificate2Collection certs = store.Certificates.Find(X509FindType.FindBySubjectName, "Gigamons", true);
+
+                string certFile = Path.Combine(Path.GetTempPath() + "cert.crt");
+
+                if (certs.Count == 0)
+                {
+                    File.WriteAllBytes(certFile, Resources.cert);
+                    X509Certificate2Collection collection = new X509Certificate2Collection();
+                    collection.Import(certFile);
+                    foreach (X509Certificate2 cert in collection)
+                        store.Add(cert);
+
+                    File.Delete(certFile);
+                }
+
+                List<string> hostc = new List<string>();
+                hostc.Add(""); // Fix whitespace with whitespace.
                 foreach (IP ip in ips)
                 {
-                    host += ip.ip + " " + ip.hostname + "\r\n";
+                    hostc.Add(ip.ip.Trim() + " " + ip.hostname.Trim());
                 }
-                File.AppendAllText(hostsFile, host);
+                File.AppendAllLines(hostsFile, hostc);
             }
             else
             {
                 string[] hosts = File.ReadAllLines(hostsFile);
+                List<string> hostc = new List<string>();
+
                 foreach (string hostf in hosts)
                 {
-                    if (host.Contains("ppy.sh") && !host.StartsWith("#"))
+                    if (hostf.Contains("ppy.sh") && !hostf.StartsWith("#"))
                         continue;
-
-                    host += hostf;
+                    hostc.Add(hostf);
                 }
-                File.WriteAllText(hostsFile, host);
+                File.WriteAllLines(hostsFile, hostc);
             }
-            
+        }
+
+        private byte[] FromHex(string hex)
+        {
+            hex = hex.Replace("-", "");
+            byte[] raw = new byte[hex.Length / 2];
+            for (int i = 0; i < raw.Length; i++)
+            {
+                raw[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
+            }
+            return raw;
         }
 
         public static bool isSwitched()

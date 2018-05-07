@@ -28,11 +28,6 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label x:Name="Link" Content="Gigamons.de" FontFamily="Segoe Script" FontSize="20" MouseLeftButtonUp="onLinkClick" MouseEnter="onLinkHover" MouseLeave="onLinkLeave" Height="39" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="147"/>
-        <Rectangle Height="62" Margin="10,10,0,0" Stroke="#00000000" VerticalAlignment="Top" HorizontalAlignment="Left" Width="63">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="Assets/NewLogo.png" Opacity="2" TileMode="Tile"/>
-            </Rectangle.Fill>
-        </Rectangle>
         <Button x:Name="Switch_Btn" Content="Switch to Gigamons" Margin="77,108,77,77" Foreground="#FFA90F6C" BorderBrush="#190E0303" FontFamily="/Switcher;component/NewFolder1/#Aller Display" FontWeight="Black" FontStretch="Condensed" TextOptions.TextHintingMode="Fixed" Click="Switch_Btn_Click" Background="#00000000" Loaded="onLoadButton"/>
     </Grid>
 </Window>
