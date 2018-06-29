@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Switcher"
         mc:Ignorable="d"
-        Title="GigaSwitcher" Height="243.326" Width="360.406" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" Background="#66000000" Loaded="Window_Loaded_t">
+        Title="GigaSwitcher" Height="243.326" Width="360.406" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" Background="#66000000" Loaded="Window_Loaded_t" KeyDown="onKeyDown">
     <Grid>
         <Rectangle Stroke="#01000000">
             <Rectangle.Fill>
@@ -17,17 +17,16 @@
                 <ImageBrush ImageSource="Assets/top_pink.png" TileMode="Tile" Opacity="2"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle x:Name="Close_btn" Margin="0,4,3,0" Stroke="#00000000" MouseEnter="onMouseHoverClose" MouseLeave="onMouseLeaveClose" Loaded="onLoadClose" MouseLeftButtonUp="onClickClose" HorizontalAlignment="Right" Width="31" Height="31" VerticalAlignment="Top">
+        <Rectangle x:Name="Close_btn" Margin="0,8,11,0" Stroke="#00000000" MouseEnter="onMouseHoverClose" MouseLeave="onMouseLeaveClose" Loaded="onLoadClose" MouseLeftButtonUp="onClickClose" HorizontalAlignment="Right" Width="24" Height="23" VerticalAlignment="Top">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="Assets/close.png" TileMode="Tile"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle x:Name="Min_btn" Margin="0,6,34,0" Stroke="#01000000" Loaded="onLoadHide" MouseEnter="onMinHover" MouseLeave="onMinLeave" MouseLeftButtonDown="onClickMin" HorizontalAlignment="Right" Width="31" Height="29" VerticalAlignment="Top">
+        <Rectangle x:Name="Min_btn" Margin="0,10,35,0" Stroke="#01000000" Loaded="onLoadHide" MouseEnter="onMinHover" MouseLeave="onMinLeave" MouseLeftButtonDown="onClickMin" HorizontalAlignment="Right" Width="24" Height="21" VerticalAlignment="Top">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="Assets/min.png" TileMode="Tile"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Label x:Name="Link" Content="Gigamons.de" FontFamily="Segoe Script" FontSize="20" MouseLeftButtonUp="onLinkClick" MouseEnter="onLinkHover" MouseLeave="onLinkLeave" Height="39" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="147"/>
         <Button x:Name="Switch_Btn" Content="Switch to Gigamons" Margin="77,108,77,77" Foreground="#FFA90F6C" BorderBrush="#190E0303" FontFamily="/Switcher;component/NewFolder1/#Aller Display" FontWeight="Black" FontStretch="Condensed" TextOptions.TextHintingMode="Fixed" Click="Switch_Btn_Click" Background="#00000000" Loaded="onLoadButton"/>
     </Grid>
 </Window>

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -161,31 +162,6 @@ namespace Switcher
             this.DragMove();
         }
 
-        private void onLinkClick(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ClickCount == 4)
-                Debug = true;
-            else
-            {
-                Debug = false;
-                Process.Start("https://gigamons.de");
-            }
-        }
-
-        private void onLinkHover(object sender, MouseEventArgs e)
-        {
-            Cursor = Cursors.Hand;
-            Link.Foreground = Brushes.HotPink;
-            Link.Opacity = 100;
-        }
-
-        private void onLinkLeave(object sender, MouseEventArgs e)
-        {
-            Cursor = Cursors.Arrow;
-            Link.Foreground = Brushes.Black;
-            Link.Opacity = 50;
-        }
-
         #endregion
 
         private void Switch_Btn_Click(object sender, RoutedEventArgs e)
@@ -200,9 +176,26 @@ namespace Switcher
             System.Threading.Thread.Sleep(500);
             Switch_Btn.Content = swtch.isSwitched() ? "Switch to Gigamons" : "Switch to Bancho";
         }
+
+        private void onKeyDown(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine(e.Key);
+            if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.Up))
+            {
+                if (this.Debug)
+                {
+                    this.Debug = false;
+                    MessageBox.Show("Debug mode disabled! You can connect now to Gigamons - Production Server! (if you have an account ofc)");
+                    return;
+                }
+                this.Debug = true;
+                MessageBox.Show("Debug mode enabled! You can now connect to Gigamons - Dev Server! (if you have an account ofc)");
+            }
+        }
     }
 
     #region Shader
+    // Somewhere from stackoverflow
     class InvertEffect : ShaderEffect
     {
         private const string _kshaderAsBase64 =

@@ -32,7 +32,7 @@ namespace Switcher
             {
                 MessageBox.Show(ex.ToString() + "\r\n " + ex.StackTrace);
                 ips = new IP[6];
-                ips[0] = new IP() { hostname = "a.ppy.sh", ip = "127.0.0.1"};
+                ips[0] = new IP() { hostname = "a.ppy.sh", ip = "127.0.0.1" };
                 ips[1] = new IP() { hostname = "s.ppy.sh", ip = "127.0.0.1" };
                 ips[2] = new IP() { hostname = "i.ppy.sh", ip = "127.0.0.1" };
                 ips[3] = new IP() { hostname = "c.ppy.sh", ip = "127.0.0.1" };
@@ -110,7 +110,14 @@ namespace Switcher
         {
             IP[] iplist;
             WebClient client = new WebClient();
-            string data = await client.DownloadStringTaskAsync("http://ip.gigamons.de");
+            string data;
+            if (!Debug) {
+                data = await client.DownloadStringTaskAsync("http://ip.gigamons.de");
+            }
+            else
+            {
+                data = await client.DownloadStringTaskAsync("http://ip.gigamons.de/dev.txt");
+            }
 
             string[] ips = data.Split(',');
 
